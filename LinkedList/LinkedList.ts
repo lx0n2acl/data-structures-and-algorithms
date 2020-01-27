@@ -26,9 +26,6 @@ export default class LinkedList {
     let iterator: LinkedListNode = this.head;
     let str = "";
 
-    console.log("to string: ", iterator.value)
-    console.log("to string 2: ", iterator.next)
-
     while (iterator.next != null) {
       str += iterator.value;
       iterator = iterator.next;
