@@ -1,6 +1,9 @@
 
 export default class LinkedListNode {
-  constructor(value) {
+  value: string;
+  next: LinkedListNode;
+
+  constructor(value: string) {
     this.value = value;
     this.next = null;
   }
