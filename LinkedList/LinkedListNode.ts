@@ -1,4 +1,3 @@
-
 export default class LinkedListNode {
   value: string;
   next: LinkedListNode;

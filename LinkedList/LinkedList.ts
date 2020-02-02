@@ -12,26 +12,66 @@ export default class LinkedList {
   append(value) {
     let newNode = new LinkedListNode(value);
 
-    if (this.head == null) {
+    if (this.head === null) {
       this.head = newNode;
       this.tail = newNode;
-    }
-    else {
+    } else {
       this.tail.next = newNode;
       this.tail = newNode;
     }
   }
 
-  toString() {
-    let iterator: LinkedListNode = this.head;
-    let str = "";
+  insertAfter(targetValue, value) {
+    let current = this.findFirst(targetValue);
 
-    while (iterator.next != null) {
-      str += iterator.value;
-      iterator = iterator.next;
+    if (!current) return;
+
+    let next = current.next;
+    current.next = new LinkedListNode(value);
+    current.next.next = next;
+  }
+
+  findFirst(value): LinkedListNode {
+    let current: LinkedListNode = this.head;
+
+    while (current) {
+      if (current.value === value) return current;
+
+      current = current.next;
     }
 
-    str += iterator.value;
+    return null;
+  }
+
+  delete(value) {
+    let current: LinkedListNode = this.head;
+    let previous = null;
+
+    // find node, hold on to previous
+    while (current) {
+      if (current.value === value) break;
+
+      previous = current;
+      current = current.next;
+    }
+
+    // if deleting the first element
+    if (!previous) {
+      this.head = current.next;
+      return;
+    }
+
+    previous.next = current.next;
+  }
+
+  toString() {
+    let current: LinkedListNode = this.head;
+    let str = "";
+
+    while (current) {
+      str += current.value;
+      current = current.next;
+    }
 
     return str;
   }
