@@ -5,20 +5,26 @@ const privateMethods = {
     if (nodeToInsert.value < currentNode.value) {
       if (currentNode.leftChild === null) {
         currentNode.leftChild = nodeToInsert;
-        console.log(`inserting ${nodeToInsert.value} into left child of ${currentNode.value}`);
-        return;
+        //console.log(`inserting ${nodeToInsert.value} into left child of ${currentNode.value}`);
+        return currentNode.leftChild;
       }
       this.insert(currentNode.leftChild, nodeToInsert);
     } else {
       if (currentNode.rightChild === null) {
         currentNode.rightChild = nodeToInsert;
-        console.log(`inserting ${nodeToInsert.value} into right child of ${currentNode.value}`);
-        return;
+        //console.log(`inserting ${nodeToInsert.value} into right child of ${currentNode.value}`);
+        return currentNode.rightChild;
       }
       this.insert(currentNode.rightChild, nodeToInsert);
     }
   }
 };
+
+export enum PrintType {
+  inOrder,
+  preOrder,
+  postOrder
+}
 
 export default class BinarySearchTree {
   root: TreeNode;
@@ -36,8 +42,23 @@ export default class BinarySearchTree {
       privateMethods.insert(this.root, n);
     }
   }
-
-  printTree() {
-    //while
+  print(type: PrintType, node?: TreeNode) {
+    if (node) {
+      if (type === PrintType.inOrder) {
+        this.print(type, node.leftChild);
+        console.log("inOrder print: ", node.value);
+        this.print(type, node.rightChild);
+      }
+      if (type === PrintType.preOrder) {
+        console.log("preOrder print: ", node.value);
+        this.print(type, node.leftChild);
+        this.print(type, node.rightChild);
+      }
+      if (type === PrintType.postOrder) {
+        this.print(type, node.leftChild);
+        this.print(type, node.rightChild);
+        console.log("postOrder print: ", node.value);
+      }
+    }
   }
 }
